@@ -1,5 +1,5 @@
 
-from os import path, makedirs, sep, walk
+from os import path, makedirs, sep, walk, listdir
 from fpdf import FPDF
 from datetime import date
 
@@ -56,9 +56,28 @@ class Project:
       for file_ in files:
         self.insert_image(path.join(root, file_))
 
+  def read_sql(self):
+    files = listdir(f".{sep}input")
+    for file_ in files:
+      if(file_.endswith(".sql")):
+        f = open(f".{sep}input{sep}{file_}")
+        lines = f.readlines()
+        f.close()
+        return lines
+      
+    return []
+
   # falta implementar
   def insert_sql(self):
-    pass
+    lines = self.read_sql()
+    self.pdf.set_font(self.fonte, "", 9)
+
+    for line in lines:
+      self.pdf.cell(WIDTH, HEIGHT, line, align=ALIGN, ln=True)
+    
+    self.new_line()
+    self.pdf.set_font(self.fonte, "", 12)
+
 
   def read_and_insert_source_file(self, filepath):
     f = open(filepath, "r")
@@ -74,6 +93,7 @@ class Project:
     self.new_line()
     self.new_line()
     self.pdf.set_font(self.fonte, "", 12)
+    f.close()
 
   def insert_sources(self):
 

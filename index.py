@@ -3,7 +3,7 @@ from create_page import Project
 
 
 def main():
-  print("\nANTES DE CONTINUAR, COLOQUE AS PASTAS <src> (OBRIGATORIO) <prints> (OBRIGATORIO) <sql> (OPCIONAL) E O ARQUIVO DE SUA ASSINATURA <assinatura.png> DENTRO DE INPUTS\n\n")
+  print("\nANTES DE CONTINUAR, COLOQUE AS PASTAS <src> (OBRIGATORIO) <prints> (OBRIGATORIO) E O ARQUIVO .sql (OPCIONAL) E SUA ASSINATURA <assinatura.png> DENTRO DE INPUTS\n\n")
   print("Verifique tambem que seus prints tenham um aspecto 16:9 e sua assinatura um aspecto 4:9")
   username = input("Nome completo: ")
   task_name = input("Nome da entrega (Entrega 1, Entrega 2, Lista de Exercicios, etc): ")
