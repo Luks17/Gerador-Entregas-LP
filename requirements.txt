@@ -1,0 +1,6 @@
+autopep8==1.6.0
+defusedxml==0.7.1
+fpdf2==2.5.5
+Pillow==9.2.0
+pycodestyle==2.8.0
+toml==0.10.2
