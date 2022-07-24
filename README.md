@@ -6,15 +6,16 @@ Para usuários de Windows, se estará assumindo que se está utilizando o [GitFo
 
 ## Instalação automática usando run.sh
 
-Abra a terminal (ou use GitForWindows se estiver usando Windows) e coloque os seguintes comandos:
+Abra o terminal (ou use GitForWindows se estiver usando Windows) e coloque os seguintes comandos:
 
 ```bash
-$ git clone https://github.com/Luks17/Gerador-Entregas-LP.git
-$ cd ./Gerador-Entregas-LP
-$ chmod +x ./run.sh
+$ git clone https://github.com/Luks17/Gerador-Entregas-LP.git && cd ./Gerador-Entregas-LP
+$ chmod +x ./run.sh && ./run.sh
 ```
 
-Se tudo deu certo, o programa agora está instalado, para rodar ele abra a terminal e escreva:
+Se tudo deu certo, o programa agora está instalado e irá rodar automáticamente após a instalação. 
+
+Para rodar ele daqui adiante, basta abrir o terminal (ou GitForWindows) no diretório do programa e escrever:
 
 ```bash
 $ ./run.sh
