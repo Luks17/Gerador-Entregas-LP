@@ -1,5 +1,6 @@
 
 from create_page import Project
+from zip_project import zip_project
 
 
 def main():
@@ -23,6 +24,7 @@ def main():
     project_sql = Project(username, task_name, build_file="sql", course_number=number, src_files_type=src_files_type)
     project_sql.build()
 
+  zip_project()
 
 if __name__ == "__main__":
   main()
