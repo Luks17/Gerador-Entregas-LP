@@ -1,7 +1,8 @@
 
-from os import path, makedirs, sep, walk, listdir
+from os import path, sep, walk, listdir
 from fpdf import FPDF
 from datetime import date
+from lib.util import *
 
 
 HEIGHT = 7
@@ -9,29 +10,9 @@ WIDTH = 40
 ALIGN = "L"
 
 
-def output_path(file_name):
-  if not path.exists("output"):
-    makedirs("output")
-
-  file_name = f".{sep}output{sep}" + file_name
-
-  return file_name
-
-
-def format_date(date):
-  day = date.day
-  month = date.month
-  year = date.year  
-
-  day = "0" + str(day) if day < 10 else day
-  month = "0" + str(month) if month < 10 else month
-
-  return f"{day}/{month}/{year}"
-
-
 class Project:
 
-  def __init__(self, nome, entrega, cidade="Dourados", fonte="helvetica", data=format_date( date.today() ), 
+  def __init__(self, nome, entrega, cidade="Dourados", fonte="courier", data=format_date( date.today() ), 
   pdf_template={"orientation": "P", "unit": "mm", "format": "A4"}, src_files_type=".java", build_file="src", course_number=2):
     self.pdf = FPDF(pdf_template["orientation"], pdf_template["unit"], pdf_template["format"])
     self.nome = nome
@@ -47,14 +28,18 @@ class Project:
   def new_line(self):
     self.pdf.cell(WIDTH, HEIGHT, f"", align=ALIGN, ln=True)
 
-  def insert_image(self, image_path):
-    self.pdf.image(image_path, w=180, h=101.2)
-    self.new_line()
-
   def insert_prints(self):
+    images_dictio = {}
+
     for root, dirs, files in walk(f".{sep}input{sep}prints", topdown=False):
       for file_ in files:
-        self.insert_image(path.join(root, file_))
+        images_dictio[file_] = path.join(root, file_)
+
+    images_dictio = sort_dictio_keys(images_dictio)
+
+    for value in images_dictio.values():
+      self.pdf.image(value, w=180, h=101.2)
+      self.new_line()
 
   def read_sql(self):
     files = listdir(f".{sep}input")
@@ -67,7 +52,6 @@ class Project:
       
     return []
 
-  # falta implementar
   def insert_sql(self):
     lines = self.read_sql()
     self.pdf.set_font(self.fonte, "", 9)
@@ -77,7 +61,6 @@ class Project:
     
     self.new_line()
     self.pdf.set_font(self.fonte, "", 12)
-
 
   def read_and_insert_source_file(self, filepath):
     f = open(filepath, "r")
