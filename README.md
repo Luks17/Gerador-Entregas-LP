@@ -56,10 +56,10 @@ $ pip install -r requirements.txt
 
 Primeiro de tudo, ative o ambiente igual como foi mostrado anteriormente.
 
-Após isso, para usar este programa é só colocar a pasta src com seu código, a pasta prints com seus prints, sua assinatura e arquivo .sql (se houver) na pasta input, e rodar index.py:
+Após isso, para usar este programa é só colocar a pasta src com seu código, a pasta prints com seus prints, sua assinatura e arquivo .sql (se houver) na pasta input, e rodar run.sh:
 
 ```bash
-$ python index.py
+$ ./run.sh
 ```
 
 Exemplos foram disponibilizados na pasta input deste repositório para testar.
