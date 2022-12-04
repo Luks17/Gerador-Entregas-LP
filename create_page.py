@@ -41,6 +41,8 @@ class Project:
       self.pdf.image(value, w=180, h=101.2)
       self.new_line()
 
+
+  ### Handles sql
   def read_sql(self):
     files = listdir(f".{sep}input")
     for file_ in files:
@@ -62,7 +64,9 @@ class Project:
     self.new_line()
     self.pdf.set_font(self.fonte, "", 12)
 
-  def read_and_insert_source_file(self, filepath):
+
+  ### Handles source files
+  def read_and_write_source(self, filepath):
     f = open(filepath, "r")
     filename = path.basename(f.name).replace(self.src_files, "")
     lines = f.readlines()
@@ -79,15 +83,71 @@ class Project:
     f.close()
 
   def insert_sources(self):
-
     for root, dirs, files in walk(f".{sep}input{sep}src", topdown=False):
       for file_ in files:
         if(file_.endswith(self.src_files)):
-          self.read_and_insert_source_file(path.join(root, file_))
+          self.read_and_write_source(path.join(root, file_))
       
       for dir_ in dirs:
         pass
 
+
+  ### Handles CSS
+  def read_and_write_css(self, filepath):
+    f = open(filepath, "r")
+    filename = path.basename(f.name)
+    lines = f.readlines()
+    
+    self.pdf.cell(WIDTH, HEIGHT, f"Arquivo: {filename}", align=ALIGN, ln=True)
+    self.pdf.set_font(self.fonte, "", 9)
+
+    for line in lines:
+      self.pdf.cell(WIDTH, HEIGHT, line, align=ALIGN, ln=True)
+
+    self.new_line()
+    self.new_line()
+    self.pdf.set_font(self.fonte, "", 12)
+    f.close()
+
+  def insert_css(self):
+    for root, dirs, files in walk(f".{sep}input{sep}css", topdown=False):
+      for file_ in files:
+        if(file_.endswith(".css")):
+          self.read_and_write_css(path.join(root, file_))
+      
+      for dir_ in dirs:
+        pass
+
+
+  ### Handles XHTML
+  def read_and_write_xhtml(self, filepath):
+    f = open(filepath, "r")
+    filename = path.basename(f.name)
+    lines = f.readlines()
+    
+    self.pdf.cell(WIDTH, HEIGHT, f"Arquivo: {filename}", align=ALIGN, ln=True)
+    self.pdf.set_font(self.fonte, "", 9)
+
+    for line in lines:
+      self.pdf.cell(WIDTH, HEIGHT, line, align=ALIGN, ln=True)
+
+    self.new_line()
+    self.new_line()
+    self.pdf.set_font(self.fonte, "", 12)
+    f.close()
+
+  def insert_xhtml(self):
+    for root, dirs, files in walk(f".{sep}input{sep}xhtml", topdown=False):
+      for file_ in files:
+        if(file_.endswith(".xhtml")):
+          self.read_and_write_xhtml(path.join(root, file_))
+      
+      for dir_ in dirs:
+        pass
+
+
+
+  ### Builds everything depending on build_file type
   def build(self):
     file_name = output_path(self.build_file + ".pdf")
 
@@ -102,6 +162,10 @@ class Project:
       self.insert_prints()
     elif self.build_file == "sql":
       self.insert_sql()
+    elif self.build_file == "css":
+      self.insert_css()
+    elif self.build_file == "xhtml":
+      self.insert_xhtml()
     else:
       self.insert_sources()
 

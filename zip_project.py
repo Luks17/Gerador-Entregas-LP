@@ -14,12 +14,19 @@ def get_all_file_paths():
   
   return file_paths   
 
-def copy_src_and_cd():
+def copy_folders_and_cd(has_css, has_xhtml):
   copytree(path.join("input", "src"), path.join("output", "src"))
+
+  if(has_css):
+    copytree(path.join("input", "css"), path.join("output", "css"))
+
+  if(has_xhtml):
+    copytree(path.join("input", "xhtml"), path.join("output", "xhtml"))
+
   chdir(f"output")
 
-def zip_project():
-  copy_src_and_cd()
+def zip_project(has_css=False, has_xhtml=False):
+  copy_folders_and_cd(has_css, has_xhtml)
   file_paths = get_all_file_paths()
 
   with ZipFile('Entrega.zip','w') as zip:
