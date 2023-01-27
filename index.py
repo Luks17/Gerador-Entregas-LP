@@ -15,8 +15,9 @@ def main():
   username = input("Nome completo: ")
   task_name = input("Nome da entrega (Entrega 1, Entrega 2, Lista de Exercicios, etc): ")
   number = int(input("Vc esta em qual linguagem de programacao?\n[1] para LP1\n[2] para LP2\n[3] para LP3\n\n> "))
+  has_sql_str = input("Sua entrega inclui sql? [Sim/Nao]\n")
 
-  has_sql = True if number > 1 else False
+  has_sql = has_sql_str.strip().capitalize()[0] == "S"
   has_xhtml = True if number == 3 else False
   has_css = True if number == 3 else False
 
